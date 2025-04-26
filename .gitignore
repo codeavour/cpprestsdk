@@ -1,3 +1,6 @@
+# CMake project files
+cmake-build-debug/
+cmake-build-release/
 # Visual Studio files
 *.o
 *.d
