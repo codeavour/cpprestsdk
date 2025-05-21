@@ -3,6 +3,18 @@ project(cpprestsdk-root NONE)
 
 include(ExternalProject)
 
+ExternalProject_Add(openssl
+        GIT_REPOSITORY https://github.com/openssl/openssl.git
+        GIT_TAG openssl-3.5.0
+        CMAKE_ARGS
+            -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+            -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/install
+        LOG_DOWNLOAD ON
+        LOG_CONFIGURE ON
+        LOG_BUILD ON
+        LOG_INSTALL ON
+)
+
 ExternalProject_Add(boost
         GIT_REPOSITORY https://github.com/boostorg/boost.git
         GIT_TAG boost-1.87.0
@@ -18,7 +30,7 @@ ExternalProject_Add(boost
 ExternalProject_Add(cpprestsdk
         GIT_REPOSITORY https://github.com/codeavour/cpprestsdk.git
         GIT_TAG HEAD
-        DEPENDS boost
+        DEPENDS openssl boost
         CMAKE_ARGS
             -DBUILD_TESTS=OFF   # turned off as it generates build errors
             -DWERROR=OFF        # turned off as there are warnings
