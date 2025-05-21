@@ -25,7 +25,7 @@ ExternalProject_Add(cpprestsdk
 #            -DCMAKE_CXX_STANDARD=11
             -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
             -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/install
-            -DCMAKE_CXX_FLAGS=BOOST_ASIO_NO_DEPRECATED=0
+#            -DCMAKE_CXX_FLAGS=BOOST_ASIO_NO_DEPRECATED=0
             -DBoost_USE_STATIC_LIBS=ON
 #            -DBOOST_ASIO_NO_DEPRECATED=OFF  # Linux version of cpprestsdk indireclty relies on boost's deprecated IO service
         LOG_DOWNLOAD ON
