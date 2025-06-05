@@ -17,12 +17,43 @@
 
 #include "http_client_impl.h"
 
+#if !defined(_WIN32) && !defined(__cplusplus_winrt) || defined(CPPREST_FORCE_HTTP_CLIENT_ASIO)
+#if defined(__clang__)
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wconversion"
+#endif
+#include "boost/asio/ssl.hpp"
+#if defined(__clang__)
+#pragma clang diagnostic pop
+#endif
+#endif
+
 namespace web
 {
 namespace http
 {
 namespace client
 {
+#if !defined(_WIN32) && !defined(__cplusplus_winrt) || defined(CPPREST_FORCE_HTTP_CLIENT_ASIO)
+/// <summary>
+/// Sets a callback to enable custom setting of the ssl context, at construction time.
+/// </summary>
+/// <param name="callback">A user callback allowing for customization of the ssl context at construction
+/// time.</param>
+void http_client_config::set_ssl_context_callback(const std::function<void(boost::asio::ssl::context&)>& callback)
+{
+    m_ssl_context_callback = callback;
+}
+
+/// <summary>
+/// Gets the user's callback to allow for customization of the ssl context.
+/// </summary>
+const std::function<void(boost::asio::ssl::context&)>& http_client_config::get_ssl_context_callback() const
+{
+    return m_ssl_context_callback;
+}
+#endif
+
 // Helper function to check to make sure the uri is valid.
 static void verify_uri(const uri& uri)
 {

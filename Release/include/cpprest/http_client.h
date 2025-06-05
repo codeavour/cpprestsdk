@@ -15,6 +15,19 @@
 #ifndef CASA_HTTP_CLIENT_H
 #define CASA_HTTP_CLIENT_H
 
+#if !defined(_WIN32) && !defined(__cplusplus_winrt) || defined(CPPREST_FORCE_HTTP_CLIENT_ASIO)
+namespace boost
+{
+namespace asio
+{
+namespace ssl
+{
+class context;
+}
+}
+}
+#endif
+
 #if defined(__cplusplus_winrt)
 #if !defined(__WRL_NO_DEFAULT_LIB__)
 #define __WRL_NO_DEFAULT_LIB__
@@ -59,17 +72,6 @@ typedef void* native_handle;
 #endif
 
 #include "cpprest/oauth2.h"
-
-#if !defined(_WIN32) && !defined(__cplusplus_winrt) || defined(CPPREST_FORCE_HTTP_CLIENT_ASIO)
-#if defined(__clang__)
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wconversion"
-#endif
-#include "boost/asio/ssl.hpp"
-#if defined(__clang__)
-#pragma clang diagnostic pop
-#endif
-#endif
 
 /// The web namespace contains functionality common to multiple protocols like HTTP and WebSockets.
 namespace web
@@ -368,18 +370,12 @@ public:
     /// </summary>
     /// <param name="callback">A user callback allowing for customization of the ssl context at construction
     /// time.</param>
-    void set_ssl_context_callback(const std::function<void(boost::asio::ssl::context&)>& callback)
-    {
-        m_ssl_context_callback = callback;
-    }
+    void set_ssl_context_callback(const std::function<void(boost::asio::ssl::context&)>& callback);
 
     /// <summary>
     /// Gets the user's callback to allow for customization of the ssl context.
     /// </summary>
-    const std::function<void(boost::asio::ssl::context&)>& get_ssl_context_callback() const
-    {
-        return m_ssl_context_callback;
-    }
+    const std::function<void(boost::asio::ssl::context&)>& get_ssl_context_callback() const;
 
     /// <summary>
     /// Gets the TLS extension server name indication (SNI) status.
