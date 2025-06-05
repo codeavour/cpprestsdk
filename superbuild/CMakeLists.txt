@@ -39,7 +39,7 @@ ExternalProject_Add(cpprestsdk
             -DCMAKE_INSTALL_PREFIX=${CMAKE_BINARY_DIR}/install
 #            -DCMAKE_CXX_FLAGS=BOOST_ASIO_NO_DEPRECATED=0
             -DBoost_USE_STATIC_LIBS=ON
-#            -DBOOST_ASIO_NO_DEPRECATED=OFF  # Linux version of cpprestsdk indireclty relies on boost's deprecated IO service
+#            -DBOOST_ASIO_NO_DEPRECATED=OFF  # Linux version of cpprestsdk indirectly relies on boost's deprecated IO service
         LOG_DOWNLOAD ON
         LOG_CONFIGURE ON
         LOG_BUILD ON
