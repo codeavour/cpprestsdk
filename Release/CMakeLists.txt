@@ -22,12 +22,9 @@ set(CPPREST_EXCLUDE_BROTLI ON CACHE BOOL "Exclude Brotli compression functionali
 set(CPPREST_EXPORT_DIR cmake/cpprestsdk CACHE STRING "Directory to install CMake config files.")
 set(CPPREST_INSTALL_HEADERS ON CACHE BOOL "Install header files.")
 set(CPPREST_INSTALL ON CACHE BOOL "Add install commands.")
+set(CPPREST_BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libraries.")
 
-if(IOS OR ANDROID)
-  set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libraries")
-else()
-  set(BUILD_SHARED_LIBS ON CACHE BOOL "Build shared libraries")
-endif()
+set(BUILD_SHARED_LIBS ${CPPREST_BUILD_SHARED_LIBS})
 
 if(IOS OR ANDROID OR WINDOWS_STORE OR WINDOWS_PHONE)
   set(BUILD_TESTS OFF CACHE BOOL "Build tests.")
