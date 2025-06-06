@@ -1,3 +1,5 @@
+# CMake's installation directory
+install/
 # CMake project files
 cmake-build-debug/
 cmake-build-release/
