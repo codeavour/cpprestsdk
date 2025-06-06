@@ -1,6 +1,10 @@
 # CMake project files
 cmake-build-debug/
 cmake-build-release/
+# CLion #
+#################
+/.idea/*
+!/.idea/runConfigurations
 # Visual Studio files
 *.o
 *.d
